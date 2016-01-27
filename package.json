@@ -1,0 +1,24 @@
+{
+	"name": "ibfetch",
+	"version": "1.0.0",
+	"description": "A Node.js module for fetching historical data from Interactive Brokers.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"colors": "*",
+		"ib": "*",
+		"moment": "*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/heqian/ibfetch.git"
+	},
+	"author": "Qian He",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/heqian/ibfetch/issues"
+	},
+	"homepage": "https://github.com/heqian/ibfetch#readme"
+}
