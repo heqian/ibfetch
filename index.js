@@ -6,6 +6,7 @@ var path = require("path");
 var fs = require("fs");
 var ib = require("ib");
 var moment = require("moment");
+var config = require("./config.js");
 
 var CSV_HEADER = "date,symbol,what,open,high,low,close,volume\n";
 
@@ -16,10 +17,6 @@ var timer;
 var history = [];
 
 var ticker;
-var config = {
-	what: "MIDPOINT",
-	size: "1 min"
-};
 var SIZE_TABLE = {
 	"1 sec": "1800 S",
 	"5 secs": "7200 S",
@@ -40,9 +37,9 @@ function usage() {
 }
 
 var ibMonitor = new ib({
-	clientId: 200,
-	host: "127.0.0.1",
-	port: 7496
+	clientId: config.ib.clientId,
+	host: config.ib.host,
+	port: config.ib.port
 }).on("error", function (err) {
 	console.error("[%s][Monitor][Error] %s".red, new Date().toString(), err.message);
 	if (err.message.indexOf("Historical data request pacing violation") > -1) {
