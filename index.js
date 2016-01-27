@@ -30,7 +30,7 @@ var SIZE_TABLE = {
 	"30 mins": "1 M",
 	"1 hour": "1 M",
 	"1 day": "1 Y"
-}
+};
 
 function usage() {
 	console.error("Usage: ".yellow + "node %s ".green + "[combo|forex|future|option|stock] [symbol] [<args>] [YYYY-MM-DD]".red, path.basename(__filename));
