@@ -11,7 +11,7 @@ var config = require("./config.js");
 var CSV_HEADER = "date,symbol,what,open,high,low,close,volume\n";
 
 var requestId = 0;
-var endDate;
+var endDate = moment();
 var timestamps = [];
 var timer;
 var history = [];
@@ -33,7 +33,7 @@ var SIZE_TABLE = {
 };
 
 function usage() {
-	console.error("Usage: ".yellow + "node %s ".green + "[combo|forex|future|option|stock] [symbol] [<args>] [YYYY-MM-DD]".red, path.basename(__filename));
+	console.error("Usage: ".yellow + "node %s ".green + "[combo|forex|future|option|stock] [symbol] [<args>]".red, path.basename(__filename));
 }
 
 var ibMonitor = new ib({
@@ -191,7 +191,6 @@ if (process.argv.length < 3) {
 				console.error("Usage: ".yellow + "future ".green + "[symbol] [expiry <YYYYMM>]");
 			}
 			break;
-			break;
 		case "option":
 			if (process.argv.length >= 7) {
 				ticker = ib.contract.option(
@@ -216,6 +215,4 @@ if (process.argv.length < 3) {
 		default:
 			usage();
 	}
-
-	endDate = moment();
 }
