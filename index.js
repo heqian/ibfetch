@@ -40,7 +40,7 @@ var ibMonitor = new ib({
 	clientId: config.ib.clientId,
 	host: config.ib.host,
 	port: config.ib.port
-}).on("error", function (err) {
+}).on("error", function(err) {
 	console.error("[%s][Monitor][Error] %s".red, new Date().toString(), err.message);
 	if (err.message.indexOf("Historical data request pacing violation") > -1) {
 		console.log("[WAIT] Will wait 10 minutes until %s before resuming.".yellow, new Date(new Date().getTime() + 10 * 60 * 1000).toString());
@@ -50,16 +50,18 @@ var ibMonitor = new ib({
 	} else if (err.message.indexOf("Unknown incoming") > -1) {
 		clearTimeout(timer);
 		timer = setTimeout(requestHistory, shouldWaitTime());
+	} else if (err.message.indexOf("HMDS query returned no data") > -1) {
+		next();
 	}
-}).on("connected", function () {
+}).on("connected", function() {
 	console.log("[%s][Monitor][Connected]".green, new Date().toString());
 	timer = setTimeout(requestHistory, 3 * 1000);
 	fs.writeFileSync(util.format("%s_%s.csv", ticker.symbol, ticker.secType), CSV_HEADER, { flag: "w" });
-}).on("disconnected", function () {
+}).on("disconnected", function() {
 	console.log("[%s][Monitor][Disconnected]".green, new Date().toString());
-}).on("server", function (version, connectionTime) {
+}).on("server", function(version, connectionTime) {
 	console.log("[%s][Monitor][Server] version: %s, connectionTime: %s".green, new Date().toString(), version, connectionTime);
-}).on("historicalData", function (reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps) {
+}).on("historicalData", function(reqId, date, open, high, low, close, volume, barCount, WAP, hasGaps) {
 	// Save history to database
 	if (!isNaN(date)) {
 		var bar = {
@@ -89,30 +91,7 @@ var ibMonitor = new ib({
 				}
 
 				// Next round
-				var step = SIZE_TABLE[config.size].split(" ");
-				var number = parseInt(step[0]);
-				var unit = step[1];
-				switch (unit) {
-					case "S":
-						unit = "seconds";
-						break;
-					case "D":
-						unit = "days";
-						break;
-					case "W":
-						unit = "weeks";
-						break;
-					case "M":
-						unit = "months";
-						break;
-					case "Y":
-						unit = "years";
-						break;
-					default:
-						unit = "seconds";
-				}
-				endDate.subtract(number, unit);
-				timer = setTimeout(requestHistory, shouldWaitTime());
+				next();
 			} else {
 				console.log("[UNKNOWN DATE] ".red + date);
 			}
@@ -120,6 +99,33 @@ var ibMonitor = new ib({
 	}
 
 });
+
+function next() {
+	var step = SIZE_TABLE[config.size].split(" ");
+	var number = parseInt(step[0]);
+	var unit = step[1];
+	switch (unit) {
+		case "S":
+			unit = "seconds";
+			break;
+		case "D":
+			unit = "days";
+			break;
+		case "W":
+			unit = "weeks";
+			break;
+		case "M":
+			unit = "months";
+			break;
+		case "Y":
+			unit = "years";
+			break;
+		default:
+			unit = "seconds";
+	}
+	endDate.subtract(number, unit);
+	timer = setTimeout(requestHistory, shouldWaitTime());
+}
 
 function requestHistory() {
 	console.log("[PROGRESS: REQUESTED] ".yellow + endDate.format("YYYYMMDD HH:mm:ss"));
@@ -198,7 +204,7 @@ if (process.argv.length < 3) {
 					process.argv[4],				// expiry
 					parseFloat(process.argv[5]),	// strike
 					process.argv[6].toUpperCase()	// right
-					);
+				);
 				ibMonitor.connect();
 			} else {
 				console.error("Usage: ".yellow + "option ".green + "[symbol] [expiry <YYYYMM>] [strike] [right <CALL|PUT|C|P>]");
