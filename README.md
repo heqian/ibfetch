@@ -1,5 +1,5 @@
 # ibfetch
-A Node.js module for fetching historical data from Interactive Brokers.
+A tool for fetching historical data from Interactive Brokers.
 
 ## Requirements
 * Node.js, [https://nodejs.org](https://nodejs.org)
