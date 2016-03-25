@@ -5,6 +5,8 @@ A tool for fetching historical data from Interactive Brokers.
 * Node.js, [https://nodejs.org](https://nodejs.org)
 * NPM, [https://www.npmjs.com](https://www.npmjs.com)
 
+You can install both together either via [package manager](https://nodejs.org/en/download/package-manager/) or [installer](https://nodejs.org/en/download/).
+
 ## Installation
 ```sh
 git clone https://github.com/heqian/ibfetch.git
