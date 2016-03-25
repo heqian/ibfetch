@@ -17,15 +17,15 @@ npm install
 ## Usage
 * `node index.js combo [symbol]`
 * `node index.js forex [symbol]`
-* `node index.js future [symbol] [expiry <YYYYMM>]`
-* `node index.js option [symbol] [expiry <YYYYMM>] [strike] [right <CALL|PUT|C|P>]`
+* `node index.js future [symbol] [expiry <YYYYMM|YYYYMMDD>]`
+* `node index.js option [symbol] [expiry <YYYYMM|YYYYMMDD>] [strike] [right <CALL|PUT|C|P>]`
 * `node index.js stock [symbol]`
 
 ## Examples
 * `node index.js combo FIT`
 * `node index.js forex EUR`
-* `node index.js future FIT 201602`
-* `node index.js option FIT 201601 20.0 CALL`
+* `node index.js future FIT 201604`
+* `node index.js option FIT 20160401 20.0 CALL`
 * `node index.js stock FIT`
 
 ## Step by Step
