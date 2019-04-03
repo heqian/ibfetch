@@ -89,6 +89,7 @@ var ibMonitor = new ib({
 					var line = util.format("%s,%s,%s,%s,%s,%s,%s,%s\n", entry.date, ticker.symbol, config.what, entry.open, entry.high, entry.low, entry.close, entry.volume);
 					fs.writeFileSync(util.format("%s_%s.csv", ticker.symbol, ticker.secType), line, { flag: "a" });
 				}
+				history = [];
 
 				// Next round
 				next();
