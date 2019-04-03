@@ -130,7 +130,7 @@ function next() {
 function requestHistory() {
 	console.log("[PROGRESS: REQUESTED] ".yellow + endDate.format("YYYYMMDD HH:mm:ss"));
 	requestId++;
-	ibMonitor.reqHistoricalData(requestId, ticker, endDate.format("YYYYMMDD HH:mm:ss"), SIZE_TABLE[config.size], config.size, config.what, 0, 2);
+	ibMonitor.reqHistoricalData(requestId, ticker, endDate.format("YYYYMMDD HH:mm:ss"), SIZE_TABLE[config.size], config.size, config.what, 0, 2, false);
 	timestamps.push(new Date());
 }
 
