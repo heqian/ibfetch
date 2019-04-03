@@ -80,7 +80,7 @@ var ibMonitor = new ib({
 	} else {
 		if (date) {
 			if (date.indexOf("finished") === 0) {
-				console.log("[PROGRESS: FINIHSED] ".green + date);
+				console.log("[PROGRESS: FINISHED] ".green + date);
 
 				// Write data to CSV file
 				history = history.reverse();
